@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex/core/pokemon_colors.dart';
 import 'package:pokedex/features/home/domain/home_cubit.dart';
 import 'package:pokedex/features/home/view/widgets/home_app_bar.dart';
 import 'package:pokedex/features/home/view/widgets/home_body.dart';
@@ -23,7 +24,7 @@ class HomePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.red,
+        backgroundColor: PokemonColors.defaultColor,
         appBar: AppBar(
           toolbarHeight: 120,
           flexibleSpace: HomeAppBar(),
