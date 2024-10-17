@@ -1,10 +1,12 @@
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:pokedex/src/client/pokemon_client_interface.dart';
 
-class PokemonClient {
+class PokemonClient implements PokemonClientInterface {
   final baseUrl = 'pokeapi.co';
   final client = http.Client();
 
+  @override
   Future<Response> getPokemons() async {
     final queryParameters = {
       'limit': '151',
