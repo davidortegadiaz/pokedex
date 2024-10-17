@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pokedex/core/router.dart';
 import 'package:pokedex/features/pokemon_detail/domain/pokemon_detail_cubit.dart';
 import 'package:pokedex/features/pokemon_detail/view/widgets/detail_body.dart';
 import 'package:pokedex/utils/extensions/string_extensions.dart';
@@ -28,27 +30,6 @@ class PokemonDetailPageView extends StatelessWidget {
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: state.pokemon?.backgroundColor,
-              foregroundColor: Colors.white,
-              title: Row(
-                children: [
-                  Text(
-                    state.pokemon?.name.capitalize() ?? '',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Expanded(child: SizedBox()),
-                  Text(
-                    '#${state.pokemon?.id}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
             backgroundColor: state.pokemon?.backgroundColor,
             body: BlocBuilder<PokemonDetailCubit, PokemonDetailState>(
               builder: (context, state) {
@@ -64,6 +45,52 @@ class PokemonDetailPageView extends StatelessWidget {
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Icon(
+                          size: MediaQuery.of(context).size.height * .35,
+                          Icons.catching_pokemon,
+                          color: Colors.white.withOpacity(.2),
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        left: 0,
+                        child: Container(
+                          margin: EdgeInsets.all(16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: context.pop,
+                                child: Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              ),
+                              Text(
+                                state.pokemon?.name.capitalize() ?? '',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 28,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Text(
+                                '#${state.pokemon?.id}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                       Positioned(
                         bottom: 0,
                         left: 0,
