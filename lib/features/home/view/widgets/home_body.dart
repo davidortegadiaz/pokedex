@@ -15,7 +15,7 @@ class HomeBody extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
         if (state.error) {
-          return Center(child: Text('Ha habido un error'));
+          return Center(child: Text('There has been an error'));
         }
         final list = state.pokemons;
         return Container(

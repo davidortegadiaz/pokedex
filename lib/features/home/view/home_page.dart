@@ -28,17 +28,7 @@ class HomePageView extends StatelessWidget {
           toolbarHeight: 120,
           flexibleSpace: HomeAppBar(),
         ),
-        body: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            if (state.loading) {
-              return Center(child: CircularProgressIndicator());
-            }
-            if (state.error) {
-              return Center(child: Text('Ha habido un error'));
-            }
-            return HomeBody();
-          },
-        ),
+        body: HomeBody(),
       ),
     );
   }
