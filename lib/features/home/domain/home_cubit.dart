@@ -26,6 +26,7 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(filter: textFilter.trim()));
     if (state.filter.isEmpty) {
       emit(state.copyWith(filteredPokemonList: []));
+      return;
     }
 
     final filterdList = state.pokemonList
