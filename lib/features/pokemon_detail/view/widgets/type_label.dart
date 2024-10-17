@@ -13,7 +13,7 @@ class TypeLabel extends StatelessWidget {
       height: 25,
       alignment: Alignment.center,
       padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-      margin: EdgeInsets.all(8),
+      margin: EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadiusDirectional.circular(16),
         color: PokemonColorByType.colorByType(type),

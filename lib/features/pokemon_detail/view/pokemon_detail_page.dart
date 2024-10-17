@@ -97,7 +97,7 @@ class PokemonDetailPageView extends StatelessWidget {
                         child: DetailBody(pokemon: state.pokemon!),
                       ),
                       Positioned(
-                        bottom: MediaQuery.of(context).size.height * .55,
+                        bottom: MediaQuery.of(context).size.height * .62,
                         left: 0,
                         right: 0,
                         child: DetailImage(image: state.pokemon!.imageUrl),

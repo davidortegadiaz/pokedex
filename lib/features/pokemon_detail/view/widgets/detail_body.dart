@@ -15,7 +15,7 @@ class DetailBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * .6,
+      height: MediaQuery.of(context).size.height * .68,
       padding: EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
@@ -65,7 +65,31 @@ class DetailBody extends StatelessWidget {
             stats: pokemon.stats,
             color: pokemon.backgroundColor,
           ),
+          CapturedButton(color: pokemon.backgroundColor),
         ],
+      ),
+    );
+  }
+}
+
+class CapturedButton extends StatelessWidget {
+  const CapturedButton({required this.color, super.key});
+
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * .5,
+      alignment: Alignment.center,
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(16), color: color),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: Text(
+        'Captured',
+        style: TextStyle(
+          color: Colors.white,
+        ),
       ),
     );
   }
