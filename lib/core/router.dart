@@ -14,7 +14,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/pokemonDetailPage',
       builder: (BuildContext context, GoRouterState state) {
-        return const PokemonDetailPage();
+        return PokemonDetailPage(id: state.extra! as int);
       },
     ),
   ],

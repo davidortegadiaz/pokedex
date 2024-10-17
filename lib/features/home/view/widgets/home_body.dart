@@ -53,7 +53,7 @@ class HomeBodyItem extends StatelessWidget {
         builder: (BuildContext context, BoxConstraints constraints) {
       return InkWell(
         splashColor: Colors.transparent,
-        onTap: () => context.push('/pokemonDetailPage'),
+        onTap: () => context.push('/pokemonDetailPage', extra: pokemon.id),
         child: Card(
           clipBehavior: Clip.hardEdge,
           color: Colors.white,

@@ -17,4 +17,12 @@ class PokemonClient implements PokemonClientInterface {
     final response = await client.get(uri);
     return response;
   }
+
+  @override
+  Future<Response> getPokemonById(int id) async {
+    final uri = Uri.https(baseUrl, '/api/v2/pokemon/$id');
+
+    final response = await client.get(uri);
+    return response;
+  }
 }
