@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pokedex/core/router.dart';
 import 'package:pokedex/features/pokemon_detail/domain/pokemon_detail_cubit.dart';
 import 'package:pokedex/features/pokemon_detail/view/widgets/detail_body.dart';
 import 'package:pokedex/utils/extensions/string_extensions.dart';

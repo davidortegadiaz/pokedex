@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex/utils/extensions/string_extensions.dart';
 
 class Moves extends StatelessWidget {
   const Moves({required this.moves, super.key});
@@ -12,10 +13,10 @@ class Moves extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            moves[0],
+            moves[0].capitalize(),
           ),
           Text(
-            moves[1],
+            moves[1].capitalize(),
           ),
           SizedBox(height: 4),
           Text(
