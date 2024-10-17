@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokedex/features/home/domain/home_cubit.dart';
 import 'package:pokedex/src/models/pokemon.dart';
@@ -50,49 +51,56 @@ class HomeBodyItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints) {
-      return InkWell(
-        splashColor: Colors.transparent,
-        onTap: () => context.push('/pokemonDetailPage', extra: pokemon.id),
-        child: Card(
-          clipBehavior: Clip.hardEdge,
-          color: Colors.white,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Positioned(
-                bottom: 0,
-                child: Container(
-                  height: constraints.maxHeight * .4,
-                  width: constraints.maxWidth,
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(.2),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16),
-                      topRight: Radius.circular(16),
-                    ),
-                    border: Border.all(
-                      style: BorderStyle.none,
+      builder: (BuildContext context, BoxConstraints constraints) {
+        return InkWell(
+          splashColor: Colors.transparent,
+          onTap: () => context.push('/pokemonDetailPage', extra: pokemon.id),
+          child: Card(
+            clipBehavior: Clip.hardEdge,
+            color: Colors.white,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned(
+                  bottom: 0,
+                  child: Container(
+                    height: constraints.maxHeight * .4,
+                    width: constraints.maxWidth,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(.2),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16),
+                      ),
+                      border: Border.all(
+                        style: BorderStyle.none,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Image.network(pokemon.imageUrl),
-              Positioned(bottom: 0, child: Text(pokemon.name)),
-              Positioned(
-                top: 0,
-                right: 0,
-                child: Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: Text(
-                    '#${pokemon.id.toString()}',
+                Image(
+                  height: constraints.maxHeight * .5,
+                  image: Svg(
+                    pokemon.imageUrl,
+                    source: SvgSource.network,
                   ),
                 ),
-              ),
-            ],
+                Positioned(bottom: 0, child: Text(pokemon.name)),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Text(
+                      '#${pokemon.id.toString()}',
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 }

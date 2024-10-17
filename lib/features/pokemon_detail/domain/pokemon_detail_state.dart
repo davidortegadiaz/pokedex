@@ -24,6 +24,7 @@ class PokemonDetailState extends Equatable {
 
   bool get loading => status == PokemonDetailStatus.loading;
   bool get error => status == PokemonDetailStatus.error;
+  bool get success => status == PokemonDetailStatus.success;
 }
 
 enum PokemonDetailStatus { initial, loading, success, error }

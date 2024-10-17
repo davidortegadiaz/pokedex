@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+import 'package:pokedex/features/pokemon_detail/view/widgets/moves.dart';
+import 'package:pokedex/features/pokemon_detail/view/widgets/pokemon_height.dart';
+import 'package:pokedex/features/pokemon_detail/view/widgets/pokemon_weight.dart';
+import 'package:pokedex/features/pokemon_detail/view/widgets/stats.dart';
+import 'package:pokedex/features/pokemon_detail/view/widgets/type_label.dart';
+import 'package:pokedex/src/models/pokemon_detail.dart';
+import 'package:pokedex/utils/widgets/separator.dart';
+
+class DetailBody extends StatelessWidget {
+  const DetailBody({required this.pokemon, super.key});
+
+  final PokemonDetail pokemon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * .6,
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: Colors.white,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:
+                pokemon.types.map((type) => TypeLabel(type: type)).toList(),
+          ),
+          Text(
+            'About',
+            style: TextStyle(
+              color: pokemon.backgroundColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
+            ),
+          ),
+          SizedBox(
+            height: 60,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                PokemonWeight(weight: pokemon.weight),
+                Separator(),
+                PokemonHeight(height: pokemon.height),
+                Separator(),
+                Moves(
+                  moves: pokemon.moves,
+                ),
+              ],
+            ),
+          ),
+          Text(
+            'Base Stats',
+            style: TextStyle(
+              color: pokemon.backgroundColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
+            ),
+          ),
+          Stats(
+            stats: pokemon.stats,
+            color: pokemon.backgroundColor,
+          ),
+        ],
+      ),
+    );
+  }
+}

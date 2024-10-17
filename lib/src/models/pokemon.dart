@@ -18,7 +18,7 @@ class Pokemon extends Equatable {
   List<Object?> get props => [id, name];
 
   String get imageUrl =>
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/$id.png';
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/$id.svg';
 
   @override
   bool? get stringify => true;

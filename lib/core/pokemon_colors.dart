@@ -21,3 +21,32 @@ class PokemonColors {
   static const Color water = Color(0xFF539ae2);
   static const Color defaultColor = Color(0xFFFF0000);
 }
+
+enum PokemonColorByType {
+  bug(color: PokemonColors.bug),
+  dark(color: PokemonColors.dark),
+  dragon(color: PokemonColors.dragon),
+  electric(color: PokemonColors.electric),
+  fairy(color: PokemonColors.fairy),
+  fighting(color: PokemonColors.fighting),
+  fire(color: PokemonColors.fire),
+  flying(color: PokemonColors.flying),
+  ghost(color: PokemonColors.ghost),
+  grass(color: PokemonColors.grass),
+  ground(color: PokemonColors.ground),
+  ice(color: PokemonColors.ice),
+  normal(color: PokemonColors.normal),
+  poison(color: PokemonColors.poison),
+  psychic(color: PokemonColors.psychic),
+  rock(color: PokemonColors.rock),
+  steel(color: PokemonColors.steel),
+  water(color: PokemonColors.water);
+
+  const PokemonColorByType({required this.color});
+
+  final Color color;
+
+  static Color colorByType(String type) =>
+      PokemonColorByType.values.asNameMap()[type]?.color ??
+      PokemonColors.defaultColor;
+}
