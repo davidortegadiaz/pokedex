@@ -12,9 +12,9 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           toolbarHeight: 130,
           elevation: 0,
-          flexibleSpace: HomeAppBar(),
+          flexibleSpace: const HomeAppBar(),
         ),
-        body: HomeBody(),
+        body: const HomeBody(),
       ),
     );
   }

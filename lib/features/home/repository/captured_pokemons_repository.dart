@@ -20,25 +20,28 @@ class CapturedPokemonsRepository
           (pokemon) => jsonEncode(pokemon.toJson()),
         )
         .toList();
-    injector<SharedPreferences>().setStringList('items', stringList);
+    await injector<SharedPreferences>().setStringList('items', stringList);
   }
 
   @override
   Future<void> freePokemon(PokemonDetail pokemon) async {
-    final pokemonList = getCapturedPokemon();
-    pokemonList.remove(pokemon);
+    final pokemonList = getCapturedPokemon()..remove(pokemon);
     final stringList = pokemonList
         .map(
           (pokemon) => jsonEncode(pokemon.toJson()),
         )
         .toList();
-    injector<SharedPreferences>().setStringList('items', stringList);
+    await injector<SharedPreferences>().setStringList('items', stringList);
   }
 
   @override
   List<PokemonDetail> getCapturedPokemon() {
     return (injector<SharedPreferences>().getStringList('items') ?? [])
-        .map((pokemon) => PokemonDetail.fromLocalJson(jsonDecode(pokemon)))
+        .map(
+          (pokemon) => PokemonDetail.fromLocalJson(
+            jsonDecode(pokemon) as Map<String, dynamic>,
+          ),
+        )
         .toList();
   }
 }

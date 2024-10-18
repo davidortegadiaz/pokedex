@@ -13,7 +13,7 @@ class PokemonDetailRepository implements PokemonDetailRepositoryInterface {
   Future<PokemonDetail> getPokemonById(int id) async {
     final response =
         await injector<PokemonClientInterface>().getPokemonById(id);
-    final json = jsonDecode(response.body);
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
 
     final pokemon = PokemonDetail.fromJson(json);
 

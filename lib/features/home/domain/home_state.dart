@@ -1,14 +1,6 @@
 part of 'home_cubit.dart';
 
 class HomeState extends Equatable {
-  final List<Pokemon> pokemonList;
-  final List<Pokemon> filteredPokemonList;
-  final List<PokemonDetail> capturedPokemonList;
-  final HomeStatus status;
-  final String filter;
-  final bool capturedView;
-  final CapturedFilters capturedFilter;
-
   const HomeState({
     this.pokemonList = const <Pokemon>[],
     this.filteredPokemonList = const <Pokemon>[],
@@ -18,6 +10,14 @@ class HomeState extends Equatable {
     this.capturedView = false,
     this.capturedFilter = CapturedFilters.id,
   });
+
+  final List<Pokemon> pokemonList;
+  final List<Pokemon> filteredPokemonList;
+  final List<PokemonDetail> capturedPokemonList;
+  final HomeStatus status;
+  final String filter;
+  final bool capturedView;
+  final CapturedFilters capturedFilter;
 
   @override
   List<Object?> get props => [
@@ -70,16 +70,16 @@ class HomeState extends Equatable {
     for (final pokemon in capturedPokemonList) {
       list.addAll(pokemon.types);
     }
-    Map<String, int> frequencyMap = {};
+    final frequencyMap = <String, int>{};
 
     // Count occurrences of each string
-    for (var item in list) {
+    for (final item in list) {
       frequencyMap[item] = (frequencyMap[item] ?? 0) + 1;
     }
 
     // Find the maximum count and track the strings that have that count
-    int maxCount = 0;
-    List<String> mostRepeated = [];
+    var maxCount = 0;
+    var mostRepeated = <String>[];
 
     frequencyMap.forEach((key, value) {
       if (value > maxCount) {

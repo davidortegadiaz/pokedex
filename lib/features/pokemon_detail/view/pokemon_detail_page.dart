@@ -17,7 +17,7 @@ class PokemonDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => PokemonDetailCubit()..getPokemonById(id),
-      child: PokemonDetailPageView(),
+      child: const PokemonDetailPageView(),
     );
   }
 }
@@ -35,14 +35,14 @@ class PokemonDetailPageView extends StatelessWidget {
             body: BlocBuilder<PokemonDetailCubit, PokemonDetailState>(
               builder: (context, state) {
                 if (state.loading) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
                 if (state.error) {
-                  return Center(child: Text('There has been an error'));
+                  return const Center(child: Text('There has been an error'));
                 }
                 return Container(
                   width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.all(4),
+                  margin: const EdgeInsets.all(4),
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
@@ -60,13 +60,13 @@ class PokemonDetailPageView extends StatelessWidget {
                         right: 0,
                         left: 0,
                         child: Container(
-                          margin: EdgeInsets.all(16),
+                          margin: const EdgeInsets.all(16),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               InkWell(
                                 onTap: context.pop,
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_back,
                                   color: Colors.white,
                                   size: 30,
@@ -74,7 +74,7 @@ class PokemonDetailPageView extends StatelessWidget {
                               ),
                               Text(
                                 state.pokemon?.name.capitalize() ?? '',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 28,
                                   color: Colors.white,
@@ -82,7 +82,7 @@ class PokemonDetailPageView extends StatelessWidget {
                               ),
                               Text(
                                 '#${state.pokemon?.id}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
                                   color: Colors.white,
@@ -121,7 +121,7 @@ class PokemonDetailPageView extends StatelessWidget {
 }
 
 class DetailImage extends StatelessWidget {
-  const DetailImage({super.key, required this.image});
+  const DetailImage({required this.image, super.key});
 
   final String image;
 

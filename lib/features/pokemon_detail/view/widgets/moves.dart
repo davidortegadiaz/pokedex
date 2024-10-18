@@ -11,17 +11,20 @@ class Moves extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * (Platform.isWindows ? .1 : .2),
+      width:
+          MediaQuery.of(context).size.width * (Platform.isWindows ? .1 : .25),
       child: Column(
         children: [
           Text(
             moves[0].capitalize(),
+            maxLines: 1,
           ),
           Text(
             moves[1].capitalize(),
+            maxLines: 1,
           ),
-          SizedBox(height: 4),
-          Text(
+          const SizedBox(height: 4),
+          const Text(
             'Moves',
             style: TextStyle(fontSize: 10),
           ),

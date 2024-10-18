@@ -1,24 +1,25 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:equatable/equatable.dart';
 
 class Stat extends Equatable {
-  final int baseStat;
-  final String name;
-
   const Stat({required this.baseStat, required this.name});
 
   factory Stat.fromJson(Map<String, dynamic> json) {
     return Stat(
-      baseStat: json['base_stat'],
+      baseStat: json['base_stat'] as int,
       name: json['stat']['name'] as String,
     );
   }
 
   factory Stat.fromLocalJson(Map<String, dynamic> json) {
     return Stat(
-      baseStat: json['baseStat'],
+      baseStat: json['baseStat'] as int,
       name: json['name'] as String,
     );
   }
+  final int baseStat;
+  final String name;
 
   Map<String, dynamic> toJson() {
     return {

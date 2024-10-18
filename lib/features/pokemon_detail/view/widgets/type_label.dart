@@ -12,15 +12,15 @@ class TypeLabel extends StatelessWidget {
     return Container(
       height: 25,
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-      margin: EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
         borderRadius: BorderRadiusDirectional.circular(16),
         color: PokemonColorByType.colorByType(type),
       ),
       child: Text(
         type.capitalize(),
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 12,
         ),

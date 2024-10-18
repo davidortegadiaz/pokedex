@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
@@ -5,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:pokedex/core/injector.dart';
 import 'package:pokedex/features/home/domain/home_cubit.dart';
 import 'package:pokedex/src/models/pokemon.dart';
-import 'dart:io' show Platform;
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
@@ -16,22 +17,22 @@ class HomeBody extends StatelessWidget {
       bloc: injector<HomeCubit>(),
       builder: (context, state) {
         if (state.loading) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
         if (state.error) {
-          return Center(child: Text('There has been an error'));
+          return const Center(child: Text('There has been an error'));
         }
         final list = state.pokemons;
-        return Container(
+        return ColoredBox(
           color: state.themeColor,
           child: Container(
-            margin: EdgeInsets.all(4),
+            margin: const EdgeInsets.all(4),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
             ),
             child: GridView.builder(
-              padding: EdgeInsets.all(12),
+              padding: const EdgeInsets.all(12),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: Platform.isWindows ? 10 : 3,
                 childAspectRatio: 100 / 110,
@@ -74,7 +75,7 @@ class HomeBodyItem extends StatelessWidget {
                     width: constraints.maxWidth,
                     decoration: BoxDecoration(
                       color: Colors.grey.withOpacity(.2),
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(16),
                         topRight: Radius.circular(16),
                       ),
@@ -98,7 +99,7 @@ class HomeBodyItem extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(4),
                     child: Text(
-                      '#${pokemon.id.toString()}',
+                      '#${pokemon.id}',
                     ),
                   ),
                 ),

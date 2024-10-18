@@ -4,9 +4,9 @@ import 'package:pokedex/utils/widgets/separator.dart';
 
 class Stats extends StatelessWidget {
   const Stats({
-    super.key,
     required this.stats,
     required this.color,
+    super.key,
   });
 
   final List<Stat> stats;
@@ -28,7 +28,7 @@ class Stats extends StatelessWidget {
               )
               .toList(),
         ),
-        Separator(height: 120),
+        const Separator(height: 120),
         Column(
           children: stats
               .map(
@@ -43,7 +43,7 @@ class Stats extends StatelessWidget {
           children: stats
               .map(
                 (stat) => Container(
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     vertical: 6,
                     horizontal: 8,
                   ),
@@ -60,7 +60,7 @@ class Stats extends StatelessWidget {
                 ),
               )
               .toList(),
-        )
+        ),
       ],
     );
   }

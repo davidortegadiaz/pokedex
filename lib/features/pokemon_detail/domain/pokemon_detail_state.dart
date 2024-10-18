@@ -1,13 +1,12 @@
 part of 'pokemon_detail_cubit.dart';
 
 class PokemonDetailState extends Equatable {
-  final PokemonDetail? pokemon;
-  final PokemonDetailStatus status;
-
   const PokemonDetailState({
     this.pokemon,
     this.status = PokemonDetailStatus.initial,
   });
+  final PokemonDetail? pokemon;
+  final PokemonDetailStatus status;
 
   @override
   List<Object?> get props => [pokemon, status];

@@ -17,10 +17,7 @@ void main() {
   setUp(() {
     // Initialize the mock client
     mockPokemonClient = MockPokemonClient();
-
-    // Replace the injector's dependency for PokemonClientInterface with the mock
-    GetIt injector = GetIt.instance;
-    injector.registerLazySingleton<PokemonClientInterface>(
+    GetIt.instance.registerLazySingleton<PokemonClientInterface>(
       () => mockPokemonClient,
     );
 

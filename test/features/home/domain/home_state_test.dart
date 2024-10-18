@@ -4,13 +4,13 @@ import 'package:pokedex/src/models/pokemon.dart';
 
 void main() {
   group('HomeState', () {
-    const List<Pokemon> samplePokemonList = [
+    const samplePokemonList = [
       Pokemon(id: 1, name: 'bulbasaur'),
-      Pokemon(id: 2, name: 'ivysaur')
+      Pokemon(id: 2, name: 'ivysaur'),
     ];
 
-    const List<Pokemon> sampleFilteredPokemonList = [
-      Pokemon(id: 1, name: 'bulbasaur')
+    const sampleFilteredPokemonList = [
+      Pokemon(id: 1, name: 'bulbasaur'),
     ];
 
     test('supports value comparisons via Equatable', () {
@@ -49,7 +49,6 @@ void main() {
     test('copyWith updates the correct properties', () {
       const originalState = HomeState(
         pokemonList: samplePokemonList,
-        status: HomeStatus.initial,
       );
 
       final newState = originalState.copyWith(
@@ -76,7 +75,6 @@ void main() {
     test('pokemons getter returns pokemonList if filter is empty', () {
       const state = HomeState(
         pokemonList: samplePokemonList,
-        filter: '',
       );
 
       expect(state.pokemons, samplePokemonList);

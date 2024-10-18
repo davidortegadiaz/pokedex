@@ -1,17 +1,11 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:pokedex/core/pokemon_colors.dart';
 import 'package:pokedex/src/models/stat.dart';
 
 class PokemonDetail extends Equatable {
-  final int id;
-  final String name;
-  final int weight;
-  final int height;
-  final List<String> types;
-  final List<String> moves;
-  final List<Stat> stats;
-
   const PokemonDetail({
     required this.id,
     required this.name,
@@ -21,13 +15,12 @@ class PokemonDetail extends Equatable {
     required this.moves,
     required this.stats,
   });
-
   factory PokemonDetail.fromJson(Map<String, dynamic> json) {
     return PokemonDetail(
-      id: json['id'],
+      id: json['id'] as int,
       name: json['name'] as String,
-      weight: json['weight'],
-      height: json['height'],
+      weight: json['weight'] as int,
+      height: json['height'] as int,
       types: (json['types'] as List)
           .map((type) => type['type']['name'] as String)
           .toList(),
@@ -35,9 +28,9 @@ class PokemonDetail extends Equatable {
           .map((type) => type['move']['name'] as String)
           .take(2)
           .toList(),
-      stats: (json['stats'] as List)
+      stats: (json['stats'] as List<dynamic>)
           .map(
-            (type) => Stat.fromJson(type),
+            (map) => Stat.fromJson(map as Map<String, dynamic>),
           )
           .toList(),
     );
@@ -45,19 +38,28 @@ class PokemonDetail extends Equatable {
 
   factory PokemonDetail.fromLocalJson(Map<String, dynamic> json) {
     return PokemonDetail(
-      id: json['id'],
+      id: json['id'] as int,
       name: json['name'] as String,
-      weight: json['weight'],
-      height: json['height'],
-      types: List.from(json['types']),
-      moves: List.from(json['moves']),
+      weight: json['weight'] as int,
+      height: json['height'] as int,
+      types: List.from(json['types'] as List),
+      moves: List.from(json['moves'] as List),
       stats: (json['stats'] as List)
           .map(
-            (json) => Stat.fromLocalJson(json),
+            (json) => Stat.fromLocalJson(
+              json as Map<String, dynamic>,
+            ),
           )
           .toList(),
     );
   }
+  final int id;
+  final String name;
+  final int weight;
+  final int height;
+  final List<String> types;
+  final List<String> moves;
+  final List<Stat> stats;
 
   Map<String, dynamic> toJson() {
     return {

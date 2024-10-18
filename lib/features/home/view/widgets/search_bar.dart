@@ -9,8 +9,8 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       clipBehavior: Clip.hardEdge,
-      padding: EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(
           Radius.circular(16),
         ),

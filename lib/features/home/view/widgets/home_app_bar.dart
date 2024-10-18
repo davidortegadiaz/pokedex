@@ -14,7 +14,7 @@ class HomeAppBar extends StatelessWidget {
       bloc: injector<HomeCubit>(),
       builder: (context, state) {
         return Container(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           height: 150,
           color: state.themeColor,
           child: Column(
@@ -23,12 +23,12 @@ class HomeAppBar extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.catching_pokemon,
                     color: Colors.white,
                     size: 32,
                   ),
-                  Text(
+                  const Text(
                     'Pokédex',
                     style: TextStyle(
                       color: Colors.white,
@@ -63,7 +63,7 @@ class HomeAppBar extends StatelessWidget {
                       dropdownColor: state.themeColor,
                       value: state.capturedFilter,
                       iconEnabledColor: Colors.white,
-                      underline: SizedBox(),
+                      underline: const SizedBox(),
                       items: CapturedFilters.values
                           .map<DropdownMenuItem<CapturedFilters>>(
                               (CapturedFilters value) {
@@ -71,7 +71,7 @@ class HomeAppBar extends StatelessWidget {
                           value: value,
                           child: Text(
                             'Sort by ${value.name}',
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           ),
                         );
                       }).toList(),
@@ -84,8 +84,8 @@ class HomeAppBar extends StatelessWidget {
               else
                 Container(
                   clipBehavior: Clip.hardEdge,
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  decoration: const BoxDecoration(
                     borderRadius: BorderRadius.all(
                       Radius.circular(16),
                     ),
@@ -106,7 +106,7 @@ class HomeAppBar extends StatelessWidget {
                       hintText: 'Search',
                       fillColor: Colors.white,
                       filled: true,
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide.none,
                       ),
                     ),

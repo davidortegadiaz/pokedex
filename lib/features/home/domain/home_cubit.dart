@@ -1,8 +1,8 @@
 import 'dart:developer';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:pokedex/core/injector.dart';
 import 'package:pokedex/core/pokemon_colors.dart';
 import 'package:pokedex/features/home/repository/captured_pokemons_repository.dart';
@@ -53,7 +53,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> freePokemon(PokemonDetail pokemon) async {
     emit(state.copyWith(status: HomeStatus.loading));
-    injector<CapturedPokemonsRepositoryInterface>().freePokemon(pokemon);
+    await injector<CapturedPokemonsRepositoryInterface>().freePokemon(pokemon);
     emit(
       state.copyWith(
         capturedPokemonList: injector<CapturedPokemonsRepositoryInterface>()
@@ -66,7 +66,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> capturePokemon(PokemonDetail pokemon) async {
     emit(state.copyWith(status: HomeStatus.loading));
-    injector<CapturedPokemonsRepositoryInterface>().capturePokemon(pokemon);
+    await injector<CapturedPokemonsRepositoryInterface>()
+        .capturePokemon(pokemon);
     emit(
       state.copyWith(
         capturedPokemonList: injector<CapturedPokemonsRepositoryInterface>()

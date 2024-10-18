@@ -21,7 +21,7 @@ class DetailBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * .68,
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
@@ -49,9 +49,9 @@ class DetailBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 PokemonWeight(weight: pokemon.weight),
-                Separator(),
+                const Separator(),
                 PokemonHeight(height: pokemon.height),
-                Separator(),
+                const Separator(),
                 Moves(
                   moves: pokemon.moves,
                 ),
@@ -101,10 +101,10 @@ class CapturedButton extends StatelessWidget {
                 state.isCaptured(pokemon.id) ? .4 : 1,
               ),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             child: Text(
               state.isCaptured(pokemon.id) ? 'Free' : 'Captured',
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
               ),
             ),

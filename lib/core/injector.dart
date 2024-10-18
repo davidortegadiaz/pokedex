@@ -14,13 +14,13 @@ void setupInjector() {
     ..registerSingletonAsync<SharedPreferences>(
       () async => SharedPreferences.getInstance(),
     )
-    ..registerLazySingleton<PokemonClientInterface>(() => PokemonClient())
-    ..registerLazySingleton<HomeRepositoryInterface>(() => HomeRepository())
+    ..registerLazySingleton<PokemonClientInterface>(PokemonClient.new)
+    ..registerLazySingleton<HomeRepositoryInterface>(HomeRepository.new)
     ..registerLazySingleton<PokemonDetailRepositoryInterface>(
-      () => PokemonDetailRepository(),
+      PokemonDetailRepository.new,
     )
     ..registerLazySingleton<CapturedPokemonsRepositoryInterface>(
-      () => CapturedPokemonsRepository(),
+      CapturedPokemonsRepository.new,
     )
     ..registerLazySingleton<HomeCubit>(
       () => HomeCubit()..getPokemons(),

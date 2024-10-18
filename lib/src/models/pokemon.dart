@@ -1,18 +1,18 @@
 import 'package:equatable/equatable.dart';
 
 class Pokemon extends Equatable {
-  final int id;
-  final String name;
-
   const Pokemon({required this.id, required this.name});
 
   factory Pokemon.fromJson(Map<String, dynamic> json) {
     return Pokemon(
-        id: int.parse(
-          (json['url']).split('/')[6],
-        ),
-        name: json['name'] as String);
+      id: int.parse(
+        (json['url'] as String).split('/')[6],
+      ),
+      name: json['name'] as String,
+    );
   }
+  final int id;
+  final String name;
 
   @override
   List<Object?> get props => [id, name];

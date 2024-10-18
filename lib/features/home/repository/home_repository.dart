@@ -12,11 +12,11 @@ class HomeRepository implements HomeRepositoryInterface {
   @override
   Future<List<Pokemon>> getPokemons() async {
     final response = await injector<PokemonClientInterface>().getPokemons();
-    final json = jsonDecode(response.body);
+    final json = jsonDecode(response.body) as Map<String, dynamic>;
 
     final pokemons = (json['results'] as List)
         .map(
-          (pokemon) => Pokemon.fromJson(pokemon),
+          (pokemon) => Pokemon.fromJson(pokemon as Map<String, dynamic>),
         )
         .toList();
 

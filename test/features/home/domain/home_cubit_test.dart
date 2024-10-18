@@ -21,9 +21,7 @@ void main() {
   setUp(() {
     mockHomeRepository = MockHomeRepository();
     mockCapturedPokemonsRepository = MockCapturedPokemonsRepository();
-    // Ensure the injector returns the mocked repository
-    GetIt injector = GetIt.instance;
-    injector.registerSingleton<HomeRepositoryInterface>(
+    GetIt.instance.registerSingleton<HomeRepositoryInterface>(
       mockHomeRepository,
     );
     injector.registerSingleton<CapturedPokemonsRepositoryInterface>(
@@ -32,33 +30,36 @@ void main() {
   });
 
   tearDown(() {
-    injector.unregister(instance: mockHomeRepository);
-    injector.unregister(instance: mockCapturedPokemonsRepository);
+    injector
+      ..unregister(instance: mockHomeRepository)
+      ..unregister(instance: mockCapturedPokemonsRepository);
   });
 
   group('HomeCubit', () {
-    const List<Pokemon> samplePokemonList = [
+    const samplePokemonList = [
       Pokemon(id: 1, name: 'bulbasaur'),
-      Pokemon(id: 2, name: 'ivysaur')
+      Pokemon(id: 2, name: 'ivysaur'),
     ];
 
-    const List<PokemonDetail> pokemonDetailList = [
+    const pokemonDetailList = [
       PokemonDetail(
-          id: 1,
-          name: 'bulbasaur',
-          weight: 1,
-          height: 1,
-          types: [],
-          moves: [],
-          stats: []),
+        id: 1,
+        name: 'bulbasaur',
+        weight: 1,
+        height: 1,
+        types: [],
+        moves: [],
+        stats: [],
+      ),
       PokemonDetail(
-          id: 2,
-          name: 'ivysaur',
-          weight: 1,
-          height: 1,
-          types: [],
-          moves: [],
-          stats: []),
+        id: 2,
+        name: 'ivysaur',
+        weight: 1,
+        height: 1,
+        types: [],
+        moves: [],
+        stats: [],
+      ),
     ];
 
     blocTest<HomeCubit, HomeState>(
@@ -74,7 +75,7 @@ void main() {
       act: (cubit) => cubit.getPokemons(),
       expect: () => [
         const HomeState(status: HomeStatus.loading), // First state: loading
-        HomeState(
+        const HomeState(
           pokemonList: samplePokemonList,
           status: HomeStatus.success,
           capturedPokemonList: pokemonDetailList,
@@ -107,14 +108,14 @@ void main() {
 
     blocTest<HomeCubit, HomeState>(
       'emits correct filtered list when filterList is called',
-      build: () => HomeCubit(),
-      seed: () => HomeState(
+      build: HomeCubit.new,
+      seed: () => const HomeState(
         pokemonList: samplePokemonList,
         status: HomeStatus.success,
       ),
       act: (cubit) => cubit.filterList('bulb'),
       expect: () => [
-        HomeState(
+        const HomeState(
           filter: 'bulb',
           pokemonList: samplePokemonList,
           status: HomeStatus.success,
@@ -124,27 +125,26 @@ void main() {
           status: HomeStatus.success,
           filter: 'bulb',
           filteredPokemonList: [
-            samplePokemonList[0]
-          ], // The filtered list only contains "bulbasaur"
+            samplePokemonList[0],
+          ],
         ),
       ],
     );
 
     blocTest<HomeCubit, HomeState>(
-      'emits empty filteredPokemonList when filterList is called with empty string',
-      build: () => HomeCubit(),
-      seed: () => HomeState(
+      'emits empty filteredPokemonList when filterList is '
+      'called with empty string',
+      build: HomeCubit.new,
+      seed: () => const HomeState(
         pokemonList: samplePokemonList,
         status: HomeStatus.success,
         filter: 'bulb',
       ),
       act: (cubit) => cubit.filterList(''),
       expect: () => [
-        HomeState(
+        const HomeState(
           pokemonList: samplePokemonList,
           status: HomeStatus.success,
-          filter: '',
-          filteredPokemonList: [],
         ),
       ],
     );

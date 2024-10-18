@@ -10,21 +10,22 @@ class PokemonWeight extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * (Platform.isWindows ? .1 : .2),
+      width:
+          MediaQuery.of(context).size.width * (Platform.isWindows ? .1 : .25),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(height: 4),
+          const SizedBox(height: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.scale, size: 18),
-              SizedBox(width: 4),
+              const Icon(Icons.scale, size: 18),
+              const SizedBox(width: 4),
               Text('$weight'),
             ],
           ),
-          SizedBox(height: 8),
-          Text(
+          const SizedBox(height: 8),
+          const Text(
             'Weight',
             style: TextStyle(fontSize: 10),
           ),
