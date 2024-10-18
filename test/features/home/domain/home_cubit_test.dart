@@ -4,25 +4,36 @@ import 'package:get_it/get_it.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:pokedex/core/injector.dart';
 import 'package:pokedex/features/home/domain/home_cubit.dart';
+import 'package:pokedex/features/home/repository/captured_pokemons_repository.dart';
 import 'package:pokedex/features/home/repository/home_repository.dart';
 import 'package:pokedex/src/models/pokemon.dart';
+import 'package:pokedex/src/models/pokemon_detail.dart';
 
 class MockHomeRepository extends Mock implements HomeRepositoryInterface {}
 
+class MockCapturedPokemonsRepository extends Mock
+    implements CapturedPokemonsRepositoryInterface {}
+
 void main() {
   late MockHomeRepository mockHomeRepository;
+  late MockCapturedPokemonsRepository mockCapturedPokemonsRepository;
 
   setUp(() {
     mockHomeRepository = MockHomeRepository();
+    mockCapturedPokemonsRepository = MockCapturedPokemonsRepository();
     // Ensure the injector returns the mocked repository
     GetIt injector = GetIt.instance;
     injector.registerSingleton<HomeRepositoryInterface>(
       mockHomeRepository,
     );
+    injector.registerSingleton<CapturedPokemonsRepositoryInterface>(
+      mockCapturedPokemonsRepository,
+    );
   });
 
   tearDown(() {
     injector.unregister(instance: mockHomeRepository);
+    injector.unregister(instance: mockCapturedPokemonsRepository);
   });
 
   group('HomeCubit', () {
@@ -31,20 +42,43 @@ void main() {
       Pokemon(id: 2, name: 'ivysaur')
     ];
 
+    const List<PokemonDetail> pokemonDetailList = [
+      PokemonDetail(
+          id: 1,
+          name: 'bulbasaur',
+          weight: 1,
+          height: 1,
+          types: [],
+          moves: [],
+          stats: []),
+      PokemonDetail(
+          id: 2,
+          name: 'ivysaur',
+          weight: 1,
+          height: 1,
+          types: [],
+          moves: [],
+          stats: []),
+    ];
+
     blocTest<HomeCubit, HomeState>(
       'emits [loading, success] when getPokemons succeeds',
       build: () {
         // Arrange: mock the successful getPokemons call
         when(() => mockHomeRepository.getPokemons())
             .thenAnswer((_) async => samplePokemonList);
+        when(() => mockCapturedPokemonsRepository.getCapturedPokemon())
+            .thenReturn(pokemonDetailList);
         return HomeCubit();
       },
       act: (cubit) => cubit.getPokemons(),
       expect: () => [
         const HomeState(status: HomeStatus.loading), // First state: loading
         HomeState(
-            pokemonList: samplePokemonList,
-            status: HomeStatus.success), // Then success
+          pokemonList: samplePokemonList,
+          status: HomeStatus.success,
+          capturedPokemonList: pokemonDetailList,
+        ), // Then success
       ],
       verify: (_) {
         // Verify the getPokemons method was called once
