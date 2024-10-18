@@ -15,7 +15,7 @@ class HomeAppBar extends StatelessWidget {
         return Container(
           padding: EdgeInsets.all(16),
           height: 150,
-          color: PokemonColors.defaultColor,
+          color: state.themeColor,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -47,7 +47,9 @@ class HomeAppBar extends StatelessWidget {
                       ),
                       child: Text(
                         state.capturedButtonText,
-                        style: TextStyle(color: Colors.red),
+                        style: TextStyle(
+                          color: state.themeColor,
+                        ),
                       ),
                     ),
                   ),
@@ -57,7 +59,7 @@ class HomeAppBar extends StatelessWidget {
                 Row(
                   children: [
                     DropdownButton<CapturedFilters>(
-                      dropdownColor: PokemonColors.defaultColor,
+                      dropdownColor: state.themeColor,
                       value: state.capturedFilter,
                       iconEnabledColor: Colors.white,
                       underline: SizedBox(),
@@ -67,7 +69,7 @@ class HomeAppBar extends StatelessWidget {
                         return DropdownMenuItem<CapturedFilters>(
                           value: value,
                           child: Text(
-                            value.name,
+                            'Sort by ${value.name}',
                             style: TextStyle(color: Colors.white),
                           ),
                         );
@@ -93,10 +95,10 @@ class HomeAppBar extends StatelessWidget {
                   child: TextField(
                     onChanged: injector<HomeCubit>().filterList,
                     textAlignVertical: TextAlignVertical.bottom,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       icon: Icon(
                         Icons.search,
-                        color: Colors.red,
+                        color: state.themeColor,
                       ),
                       hintText: 'Search',
                       fillColor: Colors.white,

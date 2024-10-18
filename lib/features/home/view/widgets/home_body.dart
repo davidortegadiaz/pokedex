@@ -22,22 +22,25 @@ class HomeBody extends StatelessWidget {
         }
         final list = state.pokemons;
         return Container(
-          margin: EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: GridView.builder(
-            padding: EdgeInsets.all(12),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 100 / 110,
+          color: state.themeColor,
+          child: Container(
+            margin: EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
             ),
-            itemCount: list.length,
-            itemBuilder: (context, index) {
-              final pokemon = list[index];
-              return HomeBodyItem(pokemon: pokemon);
-            },
+            child: GridView.builder(
+              padding: EdgeInsets.all(12),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                childAspectRatio: 100 / 110,
+              ),
+              itemCount: list.length,
+              itemBuilder: (context, index) {
+                final pokemon = list[index];
+                return HomeBodyItem(pokemon: pokemon);
+              },
+            ),
           ),
         );
       },

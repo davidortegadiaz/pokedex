@@ -63,6 +63,43 @@ class HomeState extends Equatable {
       : (filter.isEmpty ? pokemonList : filteredPokemonList);
 
   String get capturedButtonText => capturedView ? 'Captured' : 'All';
+
+  Color get themeColor {
+    final list = <String>[];
+
+    for (final pokemon in capturedPokemonList) {
+      list.addAll(pokemon.types);
+    }
+    Map<String, int> frequencyMap = {};
+
+    // Count occurrences of each string
+    for (var item in list) {
+      frequencyMap[item] = (frequencyMap[item] ?? 0) + 1;
+    }
+
+    // Find the maximum count and track the strings that have that count
+    int maxCount = 0;
+    List<String> mostRepeated = [];
+
+    frequencyMap.forEach((key, value) {
+      if (value > maxCount) {
+        maxCount = value;
+        mostRepeated = [key]; // Start a new list with the new max
+      } else if (value == maxCount) {
+        mostRepeated.add(key); // Add to the list of most repeated items
+      }
+    });
+
+    // If there's more than one item with the max count, return 'defaultColor'
+    if (mostRepeated.length > 1) {
+      return PokemonColors.defaultColor;
+    }
+
+    // Return the most repeated string
+    return PokemonColorByType.colorByType(
+      mostRepeated.first,
+    ); // If there's a clear winner, return it
+  }
 }
 
 enum HomeStatus { initial, loading, success, error }
