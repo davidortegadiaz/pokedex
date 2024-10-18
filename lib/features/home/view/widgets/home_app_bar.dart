@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/core/injector.dart';
-import 'package:pokedex/core/pokemon_colors.dart';
 import 'package:pokedex/features/home/domain/home_cubit.dart';
 
 class HomeAppBar extends StatelessWidget {
