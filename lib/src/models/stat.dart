@@ -13,6 +13,20 @@ class Stat extends Equatable {
     );
   }
 
+  factory Stat.fromLocalJson(Map<String, dynamic> json) {
+    return Stat(
+      baseStat: json['baseStat'],
+      name: json['name'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'baseStat': baseStat,
+      'name': name,
+    };
+  }
+
   @override
   List<Object?> get props => [baseStat, name];
 

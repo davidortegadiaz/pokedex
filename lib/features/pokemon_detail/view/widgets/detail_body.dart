@@ -7,7 +7,6 @@ import 'package:pokedex/features/pokemon_detail/view/widgets/pokemon_height.dart
 import 'package:pokedex/features/pokemon_detail/view/widgets/pokemon_weight.dart';
 import 'package:pokedex/features/pokemon_detail/view/widgets/stats.dart';
 import 'package:pokedex/features/pokemon_detail/view/widgets/type_label.dart';
-import 'package:pokedex/src/models/pokemon.dart';
 import 'package:pokedex/src/models/pokemon_detail.dart';
 import 'package:pokedex/utils/widgets/separator.dart';
 
@@ -88,10 +87,7 @@ class CapturedButton extends StatelessWidget {
       builder: (context, state) {
         return InkWell(
           onTap: () => injector<HomeCubit>().buttonAction(
-            Pokemon(
-              id: pokemon.id,
-              name: pokemon.name,
-            ),
+            pokemon,
           ),
           child: Container(
             width: MediaQuery.of(context).size.width * .5,

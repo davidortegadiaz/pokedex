@@ -6,6 +6,7 @@ import 'package:pokedex/core/injector.dart';
 import 'package:pokedex/features/home/repository/captured_pokemons_repository.dart';
 import 'package:pokedex/features/home/repository/home_repository.dart';
 import 'package:pokedex/src/models/pokemon.dart';
+import 'package:pokedex/src/models/pokemon_detail.dart';
 
 part 'home_state.dart';
 
@@ -18,14 +19,8 @@ class HomeCubit extends Cubit<HomeState> {
       final pokemons = state.pokemonList.isEmpty
           ? await injector<HomeRepositoryInterface>().getPokemons()
           : state.pokemonList;
-      final capturedPokemonIds = injector<CapturedPokemonsRepositoryInterface>()
-          .getCapturePokemon()
-          .map((id) => int.parse(id))
-          .toList();
-
-      final capturedPokemons = pokemons.where((pokemon) {
-        return capturedPokemonIds.contains(pokemon.id);
-      }).toList();
+      final capturedPokemons =
+          injector<CapturedPokemonsRepositoryInterface>().getCapturedPokemon();
 
       emit(
         HomeState(
@@ -54,43 +49,35 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(filteredPokemonList: filterdList));
   }
 
-  Future<void> freePokemon(int id) async {
+  Future<void> freePokemon(PokemonDetail pokemon) async {
     emit(state.copyWith(status: HomeStatus.loading));
-    final pokemonList = state.capturedPokemonList
-      ..removeWhere((pokemon) => pokemon.id == id);
+    injector<CapturedPokemonsRepositoryInterface>().freePokemon(pokemon);
     emit(
       state.copyWith(
-        capturedPokemonList: pokemonList,
-        status: HomeStatus.success,
-      ),
-    );
-    final idList = pokemonList.map((pokemon) => pokemon.id.toString()).toList();
-    idList.remove(id.toString());
-    await injector<CapturedPokemonsRepositoryInterface>()
-        .capturePokemon(idList);
-    sort();
-  }
-
-  Future<void> capturePokemon(Pokemon pokemon) async {
-    emit(state.copyWith(status: HomeStatus.loading));
-    final pokemonList = state.capturedPokemonList..add(pokemon);
-    final idList =
-        injector<CapturedPokemonsRepositoryInterface>().getCapturePokemon();
-    idList.add(pokemon.id.toString());
-    await injector<CapturedPokemonsRepositoryInterface>()
-        .capturePokemon(idList);
-    emit(
-      state.copyWith(
-        capturedPokemonList: pokemonList,
+        capturedPokemonList: injector<CapturedPokemonsRepositoryInterface>()
+            .getCapturedPokemon(),
         status: HomeStatus.success,
       ),
     );
     sort();
   }
 
-  Future<void> buttonAction(Pokemon pokemon) async {
+  Future<void> capturePokemon(PokemonDetail pokemon) async {
+    emit(state.copyWith(status: HomeStatus.loading));
+    injector<CapturedPokemonsRepositoryInterface>().capturePokemon(pokemon);
+    emit(
+      state.copyWith(
+        capturedPokemonList: injector<CapturedPokemonsRepositoryInterface>()
+            .getCapturedPokemon(),
+        status: HomeStatus.success,
+      ),
+    );
+    sort();
+  }
+
+  Future<void> buttonAction(PokemonDetail pokemon) async {
     state.isCaptured(pokemon.id)
-        ? await freePokemon(pokemon.id)
+        ? await freePokemon(pokemon)
         : await capturePokemon(pokemon);
   }
 
@@ -118,12 +105,28 @@ class HomeCubit extends Cubit<HomeState> {
     );
   }
 
+  void sortByType() {
+    emit(state.copyWith(status: HomeStatus.loading));
+    final filteredList = state.capturedPokemonList
+      ..sort((a, b) => a.types[0].compareTo(b.types[0]));
+    emit(
+      state.copyWith(
+        capturedPokemonList: filteredList,
+        status: HomeStatus.success,
+      ),
+    );
+  }
+
   void sort({CapturedFilters? capturedFilter}) {
     if (capturedFilter != null) {
       emit(state.copyWith(capturedFilter: capturedFilter));
     }
     final filter = capturedFilter ?? state.capturedFilter;
-    filter == CapturedFilters.id ? sortById() : sortByName();
+    if (filter == CapturedFilters.id) {
+      sortById();
+      return;
+    }
+    filter == CapturedFilters.type ? sortByType() : sortByName();
   }
 
   void capturedView() => emit(

@@ -43,6 +43,34 @@ class PokemonDetail extends Equatable {
     );
   }
 
+  factory PokemonDetail.fromLocalJson(Map<String, dynamic> json) {
+    return PokemonDetail(
+      id: json['id'],
+      name: json['name'] as String,
+      weight: json['weight'],
+      height: json['height'],
+      types: List.from(json['types']),
+      moves: List.from(json['moves']),
+      stats: (json['stats'] as List)
+          .map(
+            (json) => Stat.fromLocalJson(json),
+          )
+          .toList(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'weight': weight,
+      'height': height,
+      'types': types,
+      'moves': moves,
+      'stats': stats.map((stat) => stat.toJson()).toList(),
+    };
+  }
+
   @override
   List<Object?> get props => [id, name, weight, height, types, moves];
 

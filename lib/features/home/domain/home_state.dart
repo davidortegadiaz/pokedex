@@ -3,7 +3,7 @@ part of 'home_cubit.dart';
 class HomeState extends Equatable {
   final List<Pokemon> pokemonList;
   final List<Pokemon> filteredPokemonList;
-  final List<Pokemon> capturedPokemonList;
+  final List<PokemonDetail> capturedPokemonList;
   final HomeStatus status;
   final String filter;
   final bool capturedView;
@@ -12,7 +12,7 @@ class HomeState extends Equatable {
   const HomeState({
     this.pokemonList = const <Pokemon>[],
     this.filteredPokemonList = const <Pokemon>[],
-    this.capturedPokemonList = const <Pokemon>[],
+    this.capturedPokemonList = const <PokemonDetail>[],
     this.status = HomeStatus.initial,
     this.filter = '',
     this.capturedView = false,
@@ -33,7 +33,7 @@ class HomeState extends Equatable {
   HomeState copyWith({
     List<Pokemon>? pokemonList,
     List<Pokemon>? filteredPokemonList,
-    List<Pokemon>? capturedPokemonList,
+    List<PokemonDetail>? capturedPokemonList,
     HomeStatus? status,
     String? filter,
     bool? capturedView,
@@ -58,6 +58,8 @@ class HomeState extends Equatable {
 
   List<Pokemon> get pokemons => capturedView
       ? capturedPokemonList
+          .map((pokemon) => Pokemon(id: pokemon.id, name: pokemon.name))
+          .toList()
       : (filter.isEmpty ? pokemonList : filteredPokemonList);
 
   String get capturedButtonText => capturedView ? 'Captured' : 'All';
@@ -65,4 +67,4 @@ class HomeState extends Equatable {
 
 enum HomeStatus { initial, loading, success, error }
 
-enum CapturedFilters { id, name }
+enum CapturedFilters { id, name, type }
