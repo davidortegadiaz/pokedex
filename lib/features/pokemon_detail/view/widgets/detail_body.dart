@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/core/injector.dart';
@@ -90,7 +92,8 @@ class CapturedButton extends StatelessWidget {
             pokemon,
           ),
           child: Container(
-            width: MediaQuery.of(context).size.width * .5,
+            width: MediaQuery.of(context).size.width *
+                (Platform.isWindows ? .2 : .5),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),

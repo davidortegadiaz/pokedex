@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/core/injector.dart';
@@ -89,7 +91,9 @@ class HomeAppBar extends StatelessWidget {
                     ),
                     color: Colors.white,
                   ),
-                  width: double.infinity,
+                  width: Platform.isWindows
+                      ? MediaQuery.of(context).size.width * .4
+                      : double.infinity,
                   height: 32,
                   child: TextField(
                     onChanged: injector<HomeCubit>().filterList,

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pokedex/core/injector.dart';
 import 'package:pokedex/features/home/domain/home_cubit.dart';
 import 'package:pokedex/src/models/pokemon.dart';
+import 'dart:io' show Platform;
 
 class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
@@ -32,7 +33,7 @@ class HomeBody extends StatelessWidget {
             child: GridView.builder(
               padding: EdgeInsets.all(12),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
+                crossAxisCount: Platform.isWindows ? 10 : 3,
                 childAspectRatio: 100 / 110,
               ),
               itemCount: list.length,

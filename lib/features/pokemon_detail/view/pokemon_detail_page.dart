@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
@@ -92,8 +94,12 @@ class PokemonDetailPageView extends StatelessWidget {
                       ),
                       Positioned(
                         bottom: 0,
-                        left: 0,
-                        right: 0,
+                        left: Platform.isWindows
+                            ? MediaQuery.of(context).size.width * .25
+                            : 0,
+                        right: Platform.isWindows
+                            ? MediaQuery.of(context).size.width * .25
+                            : 0,
                         child: DetailBody(pokemon: state.pokemon!),
                       ),
                       Positioned(
@@ -122,8 +128,8 @@ class DetailImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image(
-      width: 150,
-      height: 150,
+      width: Platform.isWindows ? 250 : 150,
+      height: Platform.isWindows ? 250 : 150,
       image: Svg(
         image,
         source: SvgSource.network,

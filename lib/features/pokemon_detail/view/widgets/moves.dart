@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:pokedex/utils/extensions/string_extensions.dart';
 
@@ -9,7 +11,7 @@ class Moves extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * .27,
+      width: MediaQuery.of(context).size.width * (Platform.isWindows ? .1 : .2),
       child: Column(
         children: [
           Text(

@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 
 class PokemonWeight extends StatelessWidget {
@@ -8,7 +10,7 @@ class PokemonWeight extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * .2,
+      width: MediaQuery.of(context).size.width * (Platform.isWindows ? .1 : .2),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

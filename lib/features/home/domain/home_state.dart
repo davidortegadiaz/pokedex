@@ -91,7 +91,7 @@ class HomeState extends Equatable {
     });
 
     // If there's more than one item with the max count, return 'defaultColor'
-    if (mostRepeated.length > 1) {
+    if (mostRepeated.length > 1 || mostRepeated.isEmpty) {
       return PokemonColors.defaultColor;
     }
 
