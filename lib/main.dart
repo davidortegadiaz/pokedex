@@ -4,6 +4,7 @@ import 'package:pokedex/core/router.dart';
 
 void main() {
   setupInjector();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pokedex/core/injector.dart';
 import 'package:pokedex/features/home/domain/home_cubit.dart';
 import 'package:pokedex/src/models/pokemon.dart';
 
@@ -11,6 +12,7 @@ class HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
+      bloc: injector<HomeCubit>(),
       builder: (context, state) {
         if (state.loading) {
           return Center(child: CircularProgressIndicator());

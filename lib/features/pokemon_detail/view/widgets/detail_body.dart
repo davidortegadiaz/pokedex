@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex/core/injector.dart';
+import 'package:pokedex/features/home/domain/home_cubit.dart';
 import 'package:pokedex/features/pokemon_detail/view/widgets/moves.dart';
 import 'package:pokedex/features/pokemon_detail/view/widgets/pokemon_height.dart';
 import 'package:pokedex/features/pokemon_detail/view/widgets/pokemon_weight.dart';
 import 'package:pokedex/features/pokemon_detail/view/widgets/stats.dart';
 import 'package:pokedex/features/pokemon_detail/view/widgets/type_label.dart';
+import 'package:pokedex/src/models/pokemon.dart';
 import 'package:pokedex/src/models/pokemon_detail.dart';
 import 'package:pokedex/utils/widgets/separator.dart';
 
@@ -65,7 +69,7 @@ class DetailBody extends StatelessWidget {
             stats: pokemon.stats,
             color: pokemon.backgroundColor,
           ),
-          CapturedButton(color: pokemon.backgroundColor),
+          CapturedButton(pokemon: pokemon),
         ],
       ),
     );
@@ -73,24 +77,41 @@ class DetailBody extends StatelessWidget {
 }
 
 class CapturedButton extends StatelessWidget {
-  const CapturedButton({required this.color, super.key});
+  const CapturedButton({required this.pokemon, super.key});
 
-  final Color color;
+  final PokemonDetail pokemon;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * .5,
-      alignment: Alignment.center,
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(16), color: color),
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: Text(
-        'Captured',
-        style: TextStyle(
-          color: Colors.white,
-        ),
-      ),
+    return BlocBuilder<HomeCubit, HomeState>(
+      bloc: injector<HomeCubit>(),
+      builder: (context, state) {
+        return InkWell(
+          onTap: () => injector<HomeCubit>().buttonAction(
+            Pokemon(
+              id: pokemon.id,
+              name: pokemon.name,
+            ),
+          ),
+          child: Container(
+            width: MediaQuery.of(context).size.width * .5,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: pokemon.backgroundColor.withOpacity(
+                state.isCaptured(pokemon.id) ? .4 : 1,
+              ),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            child: Text(
+              state.isCaptured(pokemon.id) ? 'Free' : 'Captured',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
